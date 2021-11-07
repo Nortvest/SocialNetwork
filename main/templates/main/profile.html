@@ -1,0 +1,67 @@
+{% extends 'main/base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <section id="about">
+        <div class="text-center mb-5"><h2 class="h4  mx-auto" style="max-width: 500px;">{{ fill_name }}</h2></div>
+        <div class="text-center row px-5">
+            <div class="col-lg-4 col-sm-12 p-0">
+                <img class="w-100" src="{{ request.user.photo.url }}">
+            </div>
+            <div class="col-lg-8 col-sm-12 px-5 mt-sm-5 mt-lg-0">
+                {% if user_data.about %}
+                    {{ user_data.about }}
+                {% else %}
+                <span>Вы ничего не написали о себе</span>
+                {% endif %}
+                <button class="btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="add_post" class="mt-5 text-center">
+        <form action="" method="post">
+            <textarea class="w-100 border" name="" rows="3" style="background-color: rgb(241, 241, 241); border: none; max-width: 800px;"  ></textarea>
+        </form>
+    </section>
+
+    <section id="posts">
+        <div class="text-center mt-5 border rounded-pill p-5">
+            {% if posts %}
+            <div class="carousel slide" id="carouselControls" data-ride="carousel">
+                <div class="carousel-inner">
+                    {% for el in posts %}
+                        {% if forloop.first %}
+                        <div class="carousel-item active">
+                            {{ el.text|truncatechars:50 }}
+                        </div>
+                        {% else %}
+                        <div class="carousel-item">
+                            {{ el.text|truncatechars:50 }}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% if count_posts %}
+                <a href="#carouselControls" class="carousel-control-prev" role="button" data-bs-slide="prev">
+                    <spam style="background-color: rgb(68, 68, 68);" class="carousel-control-prev-icon rounded-3"></spam>
+                </a>
+                <a href="#carouselControls" class="carousel-control-next" role="button" data-bs-slide="next">
+                    <spam style="background-color: rgb(68, 68, 68);" class="carousel-control-next-icon rounded-3"></spam>
+                </a>
+                {% endif %}
+            </div>
+            {% else %}
+            <span class="h5">У вас пока нет постов</span>
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}

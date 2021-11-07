@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+
+{% block content %}
+
+<div class="mx-auto" style="max-width: 500px;">
+
+    <div class="text-center">
+        <h2 class="h2">{{ title }}</h2>
+    </div>
+
+    <form id="reg" method="post" enctype="multipart/form-data">
+        <h6 style="color: red;">{{ form.non_field_errors }}</h6>
+        {% csrf_token %}
+
+        {% for el in form %}
+
+        <p class="mb-0">
+            {% if el.label %}
+            <label for="{{ el.id_for_label }}">{{ el.label }}</label>
+            {% endif %}
+            {{ el }}
+            <div class="ps-1" id="{{ el.id_for_label }}_errors" style="color: rgb(204, 0, 0); font-size: 0.9em;">{{ el.errors }}</div>
+        </p>
+
+        {% endfor %}
+
+        <div class="text-center">
+            <button class="btn btn-success" type="submit">{{ btn_text }}</button>
+        </div>
+    </form>
+    
+</div>
+
+
+{% endblock %}
